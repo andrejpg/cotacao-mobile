@@ -7,17 +7,63 @@
     android:padding="16dp">
 
     <!-- ProgressBar invisível inicialmente -->
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Moeda Origem:"
+        android:textColor="#3345E5"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/comboOrigem"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Moeda Destino:"
+        android:textColor="#3345E5"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/comboDestino"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantia a converter:"
+        android:textColor="#3345E5"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/quantInput"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
     <Button
         android:id="@+id/btnConvMoeda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Converter Moeda"
-        android:onClick="convMoeda"/>
+        android:onClick="convMoeda"
+        android:text="Converter Moeda" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="40dp" />
