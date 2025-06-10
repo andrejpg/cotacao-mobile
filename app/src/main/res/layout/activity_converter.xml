@@ -105,7 +105,6 @@
             android:inputType="number|numberDecimal"
             android:maxLength="12"
             android:maxLines="1"
-            android:numeric="decimal"
             android:textSize="28dp"
             app:layout_constraintBottom_toBottomOf="@+id/textViewMoedaInicial"
             app:layout_constraintStart_toEndOf="@+id/textViewMoedaInicial"

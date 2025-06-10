@@ -34,9 +34,18 @@ class ConverterActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_converter)
 
-        disponivelReais = intent.getDoubleExtra("extratoReais", 0.0)
-        disponivelDolares = intent.getDoubleExtra("extratoDolares", 0.0)
-        disponivelBitcoin = intent.getDoubleExtra("extratoBitcoin", 0.0)
+        disponivelReais = if (intent.hasExtra("novoExtratoReais"))
+            intent.getDoubleExtra("novoExtratoReais", 0.0)
+        else
+            intent.getDoubleExtra("extratoReais", 0.0)
+        disponivelDolares = if (intent.hasExtra("novoExtratoDolares"))
+            intent.getDoubleExtra("novoExtratoDolares", 0.0)
+        else
+            intent.getDoubleExtra("extratoDolares", 0.0)
+        disponivelBitcoin = if (intent.hasExtra("novoExtratoBitcoin"))
+            intent.getDoubleExtra("novoExtratoBitcoin", 0.0)
+        else
+            intent.getDoubleExtra("extratoBitcoin", 0.0)
 
         val progressBar = findViewById<ProgressBar>(R.id.progressBarConversao)
         val moedaInicial1 = findViewById<Chip>(R.id.chipOpcaoInicial1)
@@ -118,11 +127,6 @@ class ConverterActivity : AppCompatActivity() {
         }
 
         btnConverter.setOnClickListener {
-            val valorString = inputValor.text.toString()
-                .replace(".", "")
-                .replace(",", ".")
-            val valor = valorString.toDoubleOrNull() ?: 0.0
-
             var moedaInicial = when {
                 moedaInicial1.isChecked -> "BRL"
                 moedaInicial2.isChecked -> "USD"
@@ -136,6 +140,15 @@ class ConverterActivity : AppCompatActivity() {
                 moedaFinal3.isChecked -> "BTC"
                 else -> "DESCONHECIDO"
             }
+
+            val textoSujo = inputValor.text.toString()
+
+            val valorString = when (moedaInicial) {
+                "BRL" -> textoSujo.replace(".", "").replace(",", ".")
+                "USD", "BTC" -> textoSujo.replace(",", "")
+                else -> textoSujo
+            }
+            val valor = valorString.toDoubleOrNull() ?: 0.0
 
             Log.d("debug", "Moeda inicial: $moedaInicial")
             Log.d("debug", "Moeda final: $moedaFinal")
@@ -153,15 +166,21 @@ class ConverterActivity : AppCompatActivity() {
             } else {
                 //mandar pra API
                 var isBrlToBitcoin: Boolean = false
+                var trocaMoedaInicial = ""
+                var trocaMoedaFinal = ""
                 if (moedaInicial == "BRL" && moedaFinal == "BTC") {
-                    moedaInicial = "BTC";
-                    moedaFinal = "BRL";
+                    trocaMoedaInicial = "BTC";
+                    trocaMoedaFinal = "BRL";
                     isBrlToBitcoin = true;
                 }
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val response = RetrofitClient.api.getConvMoeda(moedaInicial, moedaFinal)
-
+                        var response: retrofit2.Response<Map<String, MoedaValor>>
+                        if (isBrlToBitcoin) {
+                            response = RetrofitClient.api.getConvMoeda(trocaMoedaInicial, trocaMoedaFinal)
+                        } else {
+                            response = RetrofitClient.api.getConvMoeda(moedaInicial, moedaFinal)
+                        }
                         if (response.isSuccessful) {
                             val map = response.body()
                             val key = moedaInicial + moedaFinal
@@ -169,10 +188,11 @@ class ConverterActivity : AppCompatActivity() {
                             val bid = map?.get(key)?.bid?.toDoubleOrNull() ?: 0.0
 
                             var valorConvertido = 0.0
+
                             if (isBrlToBitcoin) {
                                 valorConvertido = valor / bid
-                                moedaInicial = "BRL"
-                                moedaFinal = "BTC"
+                                trocaMoedaInicial = "BRL"
+                                trocaMoedaFinal = "BTC"
                             }
                             else {valorConvertido = valor * bid}
                             Log.d("debug", "Valor convertido: $valorConvertido")
