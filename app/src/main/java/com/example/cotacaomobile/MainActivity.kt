@@ -1,6 +1,8 @@
 package com.example.cotacaomobile
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,8 +20,14 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        val btnNovaConversao = findViewById<Button>(R.id.btnConverter)
+        btnNovaConversao.setOnClickListener {
+            val intent = Intent(this, ConverterActivity::class.java)
+            startActivity(intent)
+        }
+
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://economia.awesomeapi.com.br/json/last/:moedas")
+            .baseUrl("https://economia.awesomeapi.com.br/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

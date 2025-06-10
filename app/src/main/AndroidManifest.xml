@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CotacaoMobile"
         tools:targetApi="31">
         <activity
-            android:name=".ConvRecActivity"
+            android:name=".ConverterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
