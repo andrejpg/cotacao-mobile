@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConverterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cream">
+
+        <ProgressBar
+            android:id="@+id/progressBarConversao"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="24dp"
+            android:progressTint="#768e52"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/labelMoedaInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="De"
+            app:layout_constraintStart_toStartOf="@+id/progressBarConversao"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarConversao" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupMoedaInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:maxHeight="32dp"
+            android:minHeight="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/labelMoedaInicial"
+            app:layout_constraintStart_toEndOf="@+id/labelMoedaInicial"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpcaoInicial1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selection"
+                android:checkable="true"
+                android:focusedByDefault="false"
+                android:text="reais"
+                android:textColor="@color/chip_text"
+                app:chipCornerRadius="24dp"
+                app:chipMinHeight="32dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpcaoInicial2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selection"
+                android:checkable="true"
+                android:text="dólares"
+                android:textColor="@color/chip_text"
+                app:chipCornerRadius="24dp"
+                app:chipMinHeight="32dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpcaoInicial3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selection"
+                android:checkable="true"
+                android:text="bitcoin"
+                android:textColor="@color/chip_text"
+                app:chipCornerRadius="24dp"
+                app:chipMinHeight="32dp" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/textViewMoedaInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="R$"
+            android:textSize="28dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/labelMoedaInicial"
+            app:layout_constraintTop_toBottomOf="@+id/labelMoedaInicial" />
+
+        <EditText
+            android:id="@+id/editTextValorInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:ems="10"
+            android:hint="0,00"
+            android:inputType="numberDecimal"
+            android:maxLength="12"
+            android:maxLines="1"
+            android:textSize="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMoedaInicial"
+            app:layout_constraintStart_toEndOf="@+id/textViewMoedaInicial"
+            app:layout_constraintTop_toBottomOf="@+id/labelMoedaInicial" />
+
+        <TextView
+            android:id="@+id/textViewMoedaInicial2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="R$"
+            android:textSize="28dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/labelMoedaFinal"
+            app:layout_constraintTop_toBottomOf="@+id/labelMoedaFinal" />
+
+        <TextView
+            android:id="@+id/labelMoedaFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Para"
+            app:layout_constraintStart_toEndOf="@+id/editTextValorInicial"
+            app:layout_constraintStart_toStartOf="@+id/textViewMoedaInicial"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMoedaInicial" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupMoedaFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/labelMoedaFinal"
+            app:layout_constraintStart_toEndOf="@+id/labelMoedaFinal"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpcaoFinal1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selection"
+                android:checkable="true"
+                android:text="reais"
+                android:textColor="@color/chip_text"
+                app:chipCornerRadius="24dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpcaoFinal2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selection"
+                android:checkable="true"
+                android:text="dólares"
+                android:textColor="@color/chip_text"
+                app:chipCornerRadius="24dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpcaoFinal3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selection"
+                android:checkable="true"
+                android:text="bitcoin"
+                android:textColor="@color/chip_text"
+                app:chipCornerRadius="24dp" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/btnSubmitConversao"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="#d4da7b"
+            android:text="Converter"
+            android:textColor="#3a462e"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

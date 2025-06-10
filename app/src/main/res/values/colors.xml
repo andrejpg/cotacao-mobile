@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cream">#F2F2E5</color>
+    <color name="rifleGreen">#3A462E</color>
+    <color name="khakiGreen">#768E52</color>
+    <color name="sage">#BBBD95</color>
+    <color name="mediumSpringBud">#D4DA7B</color>
 </resources>

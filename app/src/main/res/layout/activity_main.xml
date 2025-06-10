@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/cream">
 
         <TextView
             android:id="@+id/textViewNomeUsuario"
@@ -72,7 +73,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="24dp"
-            android:height="160dp"
+            android:height="120dp"
             android:backgroundTint="#d4da7b"
             android:contextClickable="false"
             android:firstBaselineToTopHeight="100dp"
@@ -103,7 +104,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:height="160dp"
+            android:height="120dp"
             android:backgroundTint="#d4da7b"
             android:contextClickable="false"
             android:firstBaselineToTopHeight="100dp"
@@ -135,7 +136,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:height="160dp"
+            android:height="120dp"
             android:backgroundTint="#d4da7b"
             android:contextClickable="false"
             android:firstBaselineToTopHeight="100dp"
