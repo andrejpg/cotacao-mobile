@@ -6,7 +6,7 @@ import retrofit2.http.Path
 
 interface ConvMoedaAPI {
 
-    @GET("/{moedaOrigem}-{moedaDestino}")
+    @GET("/json/last/{moedaOrigem}-{moedaDestino}")
     suspend fun getConvMoeda(
         @Path("moedaOrigem") moedaOrigem: String,
         @Path("moedaDestino") moedaDestino: String
