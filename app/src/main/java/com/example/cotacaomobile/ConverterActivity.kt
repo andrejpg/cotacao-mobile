@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ConverterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,16 +69,16 @@ class ConverterActivity : AppCompatActivity() {
             val valor = valorString.toDoubleOrNull() ?: 0.0
 
             val moedaInicial = when {
-                moedaInicial1.isChecked -> "REAIS"
-                moedaInicial2.isChecked -> "DOLARES"
-                moedaInicial3.isChecked -> "BITCOIN"
+                moedaInicial1.isChecked -> "BRL"
+                moedaInicial2.isChecked -> "USD"
+                moedaInicial3.isChecked -> "BTC"
                 else -> "DESCONHECIDO"
             }
 
             val moedaFinal = when {
-                moedaFinal1.isChecked -> "REAIS"
-                moedaFinal2.isChecked -> "DOLARES"
-                moedaFinal3.isChecked -> "BITCOIN"
+                moedaFinal1.isChecked -> "BRL"
+                moedaFinal2.isChecked -> "USD"
+                moedaFinal3.isChecked -> "BTC"
                 else -> "DESCONHECIDO"
             }
 
@@ -86,6 +90,38 @@ class ConverterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
             } else {
                 //mandar pra API
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val response = RetrofitClient.api.getConvMoeda(moedaInicial, moedaFinal)
+
+                        if (response.isSuccessful) {
+                            val map = response.body()
+                            //val key = moedaInicial + moedaFinal
+                            //val bid = map?.get(key)?.bid?.toDoubleOrNull() ?: 0.0
+                            Log.d("debug", "Resposta da API: $map")
+
+                            //val valorConvertido = valor * bid
+                            val valorConvertido = 10
+
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    this@ConverterActivity,
+                                    "Valor convertido: %.2f".format(valorConvertido),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(this@ConverterActivity, "Erro da API: ${response.code()}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.e("API_EXCEPTION", e.toString())
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@ConverterActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
     }

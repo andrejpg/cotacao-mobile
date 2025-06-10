@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://economia.awesomeapi.com.br/json/last/:moedas/")
+            .baseUrl("https://economia.awesomeapi.com.br/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
